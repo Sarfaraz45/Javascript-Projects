@@ -30,33 +30,26 @@ function showSuccess(input){
     formControl.className = 'form-control success'
 }
 
+//Function to check if required fields have data
+function checkRequired(inputArray){
+inputArray.forEach(function(input)  {
+    if(input.value === ''){
+        console.log(input.id)
+        showError(input, `${getfieldId(input)} is required`)
+    } else{
+        showSuccess(input)
+    }
+});
+}
 
+//Function to get the id of the input feild
+function getfieldId(input){
+    return input.id.charAt(0).toUpperCase() + input.id.slice(1);
+}
 //THis is an event listener for the form on submit
 form.addEventListener('submit', function(e){
     e.preventDefault()
-    if (username.value === '') {
-        showError(username,'username is required')
-    } else{
-        showSuccess(username)
-    }
-    if (email.value === '') {
-        showError(email,'Email is required')
-    } else if (!isValidEmail(email.value) ) {
-        showError(email,"Email is Invalid")
-    } 
-    else{
-        showSuccess(email)
-    }
 
-    if (password.value === '') {
-        showError(password,'Password is required')
-    } else{
-        showSuccess(password)
-    }
-
-    if (password2.value === '') {
-        showError(password2,'Confirm Password is required')
-    } else{
-        showSuccess(password2)
-    }
-})
+    checkRequired([username,email,password,password2])
+    
+  })
